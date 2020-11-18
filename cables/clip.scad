@@ -3,8 +3,9 @@ $fn = 100;
 use <base.scad>;
 
 WIDTH = 18;
-DEPTH = 10;
-FLANGE = DEPTH - 3;
+DEPTH = 10 + 4; // Account for wall thickness
+GAP = 3;
+FLANGE = DEPTH - GAP - 4;
 
 linear_extrude(20) {
   bracket();
