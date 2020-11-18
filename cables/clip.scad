@@ -3,34 +3,36 @@ $fn = 100;
 use <base.scad>;
 
 WIDTH = 18;
-DEPTH = 10 + 4; // Account for wall thickness
+WALL_THICKNESS = 1;
+RUN_SIZE = 10;
 GAP = 3;
-FLANGE = DEPTH - GAP - 4;
+DEPTH = RUN_SIZE + WALL_THICKNESS * 2;
+FLANGE = RUN_SIZE - GAP;
 
 linear_extrude(20) {
   bracket();
 
   translate([19 - WIDTH/2, -DEPTH, 0]) {
-    square([WIDTH, 2]);
+    square([WIDTH, WALL_THICKNESS]);
 
     difference() {
       rotate(90)
       union() {
-        square([FLANGE, 2]);
+        square([FLANGE, WALL_THICKNESS]);
 
-        translate([FLANGE, 1, 0])
-        circle(d = 2);
+        translate([FLANGE, WALL_THICKNESS / 2, 0])
+        circle(d = WALL_THICKNESS);
       }
 
-      translate([-2, 0, 0])
-      fillet();
+      translate([-WALL_THICKNESS, 0, 0])
+      fillet(thickness = WALL_THICKNESS);
     }
 
-    translate([WIDTH + 2, 0, 0])
+    translate([WIDTH + WALL_THICKNESS, 0, 0])
     rotate(90)
     difference() {
-      square([DEPTH, 2]);
-      fillet();
+      square([DEPTH, WALL_THICKNESS]);
+      fillet(thickness = WALL_THICKNESS);
     }
   }
 }

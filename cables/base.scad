@@ -34,11 +34,11 @@ module bracket() {
   }
 }
 
-module fillet() {
+module fillet(thickness = 2) {
   difference() {
-    square(4, center=true);
+    square(thickness * 2, center=true);
 
-    translate([2, 2, 0])
-    circle(2);
+    translate([thickness, thickness, 0])
+    circle(thickness);
   }
 }
